@@ -1,3 +1,25 @@
+----Disable all three jobs, you can used following command:
+
+-----For Disable:
+EXEC DBMS_AUTO_TASK_ADMIN.disable;
+
+-------For Enable:
+EXEC DBMS_AUTO_TASK_ADMIN.enable;
+
+
+
+-----------check curent status
+SELECT client_name, status FROM dba_autotask_client;
+
+CLIENT_NAME                           STATUS
+-------------------------------       ---------
+auto optimizer stats collection       ENABLED
+auto space advisor                    ENABLED
+sql tuning advisor                    ENABLED
+
+
+---------------disable all 
+
  EXEC DBMS_AUTO_TASK_ADMIN.DISABLE(client_name=>'sql tuning advisor', operation=>NULL, window_name=>NULL);
  EXEC DBMS_AUTO_TASK_ADMIN.DISABLE(client_name=>'auto space advisor', operation=>NULL, window_name=>NULL);
  EXEC DBMS_AUTO_TASK_ADMIN.DISABLE(client_name=>'auto optimizer stats collection', operation=>NULL, window_name=>NULL);
@@ -43,3 +65,26 @@ DBMS_SCHEDULER.ENABLE('WEDNESDAY_WINDOW');
 DBMS_SCHEDULER.ENABLE('THURSDAY_WINDOW');
 DBMS_SCHEDULER.ENABLE('FRIDAY_WINDOW');
 END;
+----------
+
+-----------------enable all 
+
+4. Enable the auto task jobs:
+
+ EXEC DBMS_AUTO_TASK_ADMIN.ENABLE(client_name=>'sql tuning advisor', operation=>NULL, window_name=>NULL);
+ EXEC DBMS_AUTO_TASK_ADMIN.ENABLE(client_name=>'auto space advisor', operation=>NULL, window_name=>NULL);
+ EXEC DBMS_AUTO_TASK_ADMIN.ENABLE(client_name=>'auto optimizer stats collection', operation=>NULL, window_name=>NULL);
+ 
+ 
+ 
+-------Check the status again for auto task jobs
+
+SELECT client_name, status FROM dba_autotask_client;
+
+ CLIENT_NAME                             STATUS
+----------------------------------       ---------------
+auto optimizer stats collection          DISABLED
+auto space advisor                       DISABLED
+sql tuning advisor                       DISABLED
+
+ 
